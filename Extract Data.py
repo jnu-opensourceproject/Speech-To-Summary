@@ -11,7 +11,7 @@ for ffile in fileList:
         main_data = pd.read_json(inputfile)
        
         # 데이터에서 Meta(Refine) 필드의 passage 필드를 추가
-        res['news'].append(main_data["Meta(Refine)"].get('passage'))
+        res['news'].append((main_data["Meta(Refine)"].get('passage')).replace("\n", " "))
         # 데이터에서 Annotation 필드의 summary1 필드를 받고 추가
         res['summary'].append(main_data['Annotation'].get('summary1'))
 
