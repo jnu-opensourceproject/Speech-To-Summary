@@ -2,7 +2,7 @@ import torch
 from transformers import PreTrainedTokenizerFast
 from transformers import BartForConditionalGeneration
 
-model = BartForConditionalGeneration.from_pretrained('./kobart_sum')
+model = BartForConditionalGeneration.from_pretrained('./SummaryModule/kobart_sum')
 tokenizer = PreTrainedTokenizerFast.from_pretrained('gogamza/kobart-base-v1')
 
 def run(string):
