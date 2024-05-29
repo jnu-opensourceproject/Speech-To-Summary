@@ -1,8 +1,8 @@
 import os
 import openai
-from tqdm import tqdm
 from multiprocessing.dummy import Pool
 from imutils import paths
+
 pool = Pool(8) # Number of concurrent threads
 
 # Set your OpenAI API key
