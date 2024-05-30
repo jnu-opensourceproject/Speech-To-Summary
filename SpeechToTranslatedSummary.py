@@ -1,6 +1,13 @@
+import Whisper
+
+# import Translation
+
+
+
 # import STT
 # import Translation
 from SummaryModule import SumModel
+
 
 text = """
 1일 오후 9시까지 최소 20만3220명이 코로나19에 신규 확진됐다. 또다시 동시간대 최다 기록으로, 사상 처음 20만명대에 진입했다.
@@ -18,10 +25,13 @@ text = """
 """
 
 if __name__ == '__main__':
-    # str0 = STT.transcribe
+
+    str0 = Whisper.run()
     # str1 = Translation.translation(str0)
     str2 = SumModel.run(text)
-
+    
+    # print(str0) 하면 음성인식 결과 출력
+    
     print(str2)
     # with open("result.txt", "w") as f:
     #     f.write(str2)
