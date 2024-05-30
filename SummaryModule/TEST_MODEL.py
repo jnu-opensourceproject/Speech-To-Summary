@@ -1,13 +1,9 @@
-import Whisper
+import torch
+from transformers import PreTrainedTokenizerFast
+from transformers import BartForConditionalGeneration
 
-# import Translation
-
-
-
-# import STT
-# import Translation
-from SummaryModule import SumModel
-
+tokenizer = PreTrainedTokenizerFast.from_pretrained('digit82/kobart-summarization')
+model = BartForConditionalGeneration.from_pretrained('digit82/kobart-summarization')
 
 text = """
 1일 오후 9시까지 최소 20만3220명이 코로나19에 신규 확진됐다. 또다시 동시간대 최다 기록으로, 사상 처음 20만명대에 진입했다.
@@ -24,14 +20,12 @@ text = """
 이날 0시 기준 신규 확진자는 13만8993명이었다. 이틀 연속 13만명대를 이어갔다.
 """
 
-if __name__ == '__main__':
+text = text.replace('\n', ' ')
 
-    str0 = Whisper.run()
-    # str1 = Translation.translation(str0)
-    str2 = SumModel.run(text)
-    
-    # print(str0) 하면 음성인식 결과 출력
-    
-    print(str2)
-    # with open("result.txt", "w") as f:
-    #     f.write(str2)
+raw_input_ids = tokenizer.encode(text)
+input_ids = [tokenizer.bos_token_id] + raw_input_ids + [tokenizer.eos_token_id]
+
+summary_ids = model.generate(torch.tensor([input_ids]),  num_beams=4,  max_length=512,  eos_token_id=1)
+result = tokenizer.decode(summary_ids.squeeze().tolist(), skip_special_tokens=True)
+
+print(result)
