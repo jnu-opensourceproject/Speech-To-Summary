@@ -40,3 +40,20 @@ print(transcript)
 
 with open("transcript with Whisper.txt", "w") as f:
     f.write(transcript)
+    
+    
+def run():
+    pool = Pool(8) # Number of concurrent threads
+
+# Define the directory containing your audio files
+    directory = 'C:/Opensource/'
+
+# Get a list of all files in the directory
+    exts = (".mp3", ".wav")
+    files = list(paths.list_files(directory, validExts=exts))
+
+    all_text = pool.map(transcribe, enumerate(files))
+    pool.close()
+    pool.join()
+    
+    return all_text

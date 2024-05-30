@@ -1,54 +1,7 @@
-import os
-import openai
-from multiprocessing.dummy import Pool
-from imutils import paths
+import Whisper
 
 # import Translation
 
-from SummaryModule import SumModel
-
-# ---------------SpeechToText 코드 시작점----------------
-
-# Number of concurrent threads
-pool = Pool(8)
-
-# Set your OpenAI API key
-openai.api_key = ''
-
-# Define the directory containing your audio files
-directory = 'C:/Opensource/'
-
-# Get a list of all files in the directory
-exts = (".mp3", ".wav")
-files = list(paths.list_files(directory, validExts=exts))
-
-def transcribe(data):
-    idx, file = data
-    name = os.path.join(directory, file)
-    print(name + " started")
-    # Open the file in read-binary mode
-    with open(name, 'rb') as f:
-        # Transcribe the audio file
-        response = openai.Audio.transcribe("whisper-1", f)
-    print(name + " done")
-    return {
-        "idx": idx,
-        "text": response['text']
-    }
-
-all_text = pool.map(transcribe, enumerate(files))
-pool.close()
-pool.join()
-
-transcript = ""
-for t in sorted(all_text, key=lambda x: x['idx']):
-    transcript = transcript + "{}\n".format(t['text'])
-print(transcript)
-
-with open("transcript with Whisper.txt", "w") as f:
-    f.write(transcript)
-    
-# ---------------SpeechToText 코드 종료점----------------
 
 
 text = """
@@ -67,7 +20,7 @@ text = """
 """
 
 if __name__ == '__main__':
-    str0 = transcript
+    str0 = Whisper.run()
     # str1 = Translation.translation(str0)
     str2 = SumModel.run(text)
     
