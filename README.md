@@ -37,3 +37,5 @@
 
 
 main에 각 모듈 병합하며 통합 모듈 구축 완료
+바이너리 파일의 다운로드 대역폭 제한으로 드라이브에서 다운로드 할 수 있습니다
+https://drive.google.com/file/d/1HKRNEh9ThmwZBgIDHWswHOOX3lF8tW0C
