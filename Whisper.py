@@ -9,7 +9,7 @@ pool = Pool(8) # Number of concurrent threads
 openai.api_key = ''
 
 # Define the directory containing your audio files
-directory = 'C:/Opensource/'
+directory = '.'
 
 # Get a list of all files in the directory
 exts = (".mp3", ".wav")
@@ -29,24 +29,24 @@ def transcribe(data):
         "text": response['text']
     }
 
-all_text = pool.map(transcribe, enumerate(files))
-pool.close()
-pool.join()
+# all_text = pool.map(transcribe, enumerate(files))
+# pool.close()
+# pool.join()
 
-transcript = ""
-for t in sorted(all_text, key=lambda x: x['idx']):
-    transcript = transcript + "{}\n".format(t['text'])
-print(transcript)
+# transcript = ""
+# for t in sorted(all_text, key=lambda x: x['idx']):
+#     transcript = transcript + "{}\n".format(t['text'])
+# print(transcript)
 
-with open("transcript with Whisper.txt", "w") as f:
-    f.write(transcript)
+# with open("transcript with Whisper.txt", "w", encoding="utf-8") as f:
+#     f.write(transcript)
     
     
 def run():
     pool = Pool(8) # Number of concurrent threads
 
 # Define the directory containing your audio files
-    directory = 'C:/Opensource/'
+    directory = '.'
 
 # Get a list of all files in the directory
     exts = (".mp3", ".wav")
